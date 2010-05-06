@@ -25,7 +25,7 @@ module DataMapper
       root = xml.root_node(doc, opts[:element_name] || default_xml_element_name[])
       properties_to_serialize(opts).each do |property|
         value = __send__(property.name)
-        attrs = (property.type == String) ? {} : {'type' => property.type.to_s.downcase}
+        attrs = (property.primitive == String) ? {} : {'type' => property.primitive.to_s.downcase}
         xml.add_node(root, property.name.to_s, value, attrs)
       end
 
