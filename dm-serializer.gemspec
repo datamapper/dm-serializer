@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Guy van den Berg"]
-  s.date = %q{2010-03-22}
+  s.date = %q{2010-05-10}
   s.description = %q{DataMapper plugin for serializing Resources and Collections}
   s.email = %q{vandenberg.guy [a] gmail [d] com}
   s.extra_rdoc_files = [
@@ -17,7 +17,8 @@ Gem::Specification.new do |s|
      "README.rdoc"
   ]
   s.files = [
-    "Gemfile",
+    ".gitignore",
+     "Gemfile",
      "LICENSE",
      "README.rdoc",
      "Rakefile",
@@ -55,12 +56,24 @@ Gem::Specification.new do |s|
      "tasks/yard.rake",
      "tasks/yardstick.rake"
   ]
-  s.homepage = %q{http://github.com/datamapper/dm-more/tree/master/dm-serializer}
+  s.homepage = %q{http://github.com/datamapper/dm-serializer}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{datamapper}
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{DataMapper plugin for serializing Resources and Collections}
+  s.test_files = [
+    "spec/fixtures/cow.rb",
+     "spec/fixtures/planet.rb",
+     "spec/fixtures/quan_tum_cat.rb",
+     "spec/lib/serialization_method_shared_spec.rb",
+     "spec/public/serializer_spec.rb",
+     "spec/public/to_csv_spec.rb",
+     "spec/public/to_json_spec.rb",
+     "spec/public/to_xml_spec.rb",
+     "spec/public/to_yaml_spec.rb",
+     "spec/spec_helper.rb"
+  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
@@ -70,6 +83,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<dm-core>, ["~> 0.10.3"])
       s.add_runtime_dependency(%q<fastercsv>, ["~> 1.5.0"])
       s.add_runtime_dependency(%q<json_pure>, ["~> 1.2.0"])
+      s.add_development_dependency(%q<dm-validations>, ["~> 0.10.3"])
       s.add_development_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_development_dependency(%q<rspec>, ["~> 1.3"])
       s.add_development_dependency(%q<yard>, ["~> 0.5"])
@@ -77,6 +91,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<dm-core>, ["~> 0.10.3"])
       s.add_dependency(%q<fastercsv>, ["~> 1.5.0"])
       s.add_dependency(%q<json_pure>, ["~> 1.2.0"])
+      s.add_dependency(%q<dm-validations>, ["~> 0.10.3"])
       s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_dependency(%q<rspec>, ["~> 1.3"])
       s.add_dependency(%q<yard>, ["~> 0.5"])
@@ -85,6 +100,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<dm-core>, ["~> 0.10.3"])
     s.add_dependency(%q<fastercsv>, ["~> 1.5.0"])
     s.add_dependency(%q<json_pure>, ["~> 1.2.0"])
+    s.add_dependency(%q<dm-validations>, ["~> 0.10.3"])
     s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
     s.add_dependency(%q<rspec>, ["~> 1.3"])
     s.add_dependency(%q<yard>, ["~> 0.5"])
