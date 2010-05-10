@@ -17,7 +17,7 @@ begin
 
     gem.add_dependency 'dm-core',   '~> 0.10.3'
     gem.add_dependency 'fastercsv', '~> 1.5.0'
-    gem.add_dependency 'json_pure', '~> 1.2.0'
+    gem.add_dependency 'json_pure', '~> 1.4.3'
 
     #gem.add_development_dependency 'libxml-ruby', '~> 1.1.3'  # not available on JRuby
     gem.add_development_dependency 'dm-validations', '~> 0.10.3'

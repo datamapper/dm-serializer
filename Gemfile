@@ -82,9 +82,9 @@ group :runtime do # Runtime dependencies (as in the gemspec)
     gem 'activesupport', '~> 3.0.0.beta3', :git => 'git://github.com/rails/rails.git', :require => nil
   end
 
-  gem 'dm-core',         DM_VERSION, :git => "#{DATAMAPPER}/dm-core.git"
+  gem 'dm-core',   DM_VERSION, :git => "#{DATAMAPPER}/dm-core.git"
   gem 'fastercsv', '~> 1.5.0'
-  gem 'json_pure', '~> 1.2.0'
+  gem 'json_pure', '~> 1.4.3'
 
 end
 
