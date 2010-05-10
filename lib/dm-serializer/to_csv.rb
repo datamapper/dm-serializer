@@ -25,22 +25,9 @@ module DataMapper
         csv << row
       end
     end
-  end
 
-  class Collection
-    def to_csv
-      result = ''
-      each do |item|
-        result << item.to_csv + "\n"
-      end
-      result
-    end
-  end
-
-  if Serialize::Support.dm_validations_loaded?
-
-    module Validations
-      class ValidationErrors
+    module ValidationErrors
+      module ToCsv
         def to_csv(writer = '')
           CSV.generate(writer) do |csv|
             errors.each do |key, value|
@@ -53,6 +40,25 @@ module DataMapper
             end
           end
         end
+      end
+    end
+  end
+
+  class Collection
+    def to_csv
+      result = ''
+      each do |item|
+        result << item.to_csv + "\n"
+      end
+      result
+    end
+  end
+
+  if Serialize.dm_validations_loaded?
+
+    module Validations
+      class ValidationErrors
+        include DataMapper::Serialize::ValidationErrors::ToCsv
       end
     end
 

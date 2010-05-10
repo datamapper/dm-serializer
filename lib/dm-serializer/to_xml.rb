@@ -44,29 +44,9 @@ module DataMapper
       end
       doc
     end
-  end
 
-  class Collection
-    def to_xml(opts = {})
-      to_xml_document(opts).to_s
-    end
-
-    def to_xml_document(opts = {})
-      xml = DataMapper::Serialize::XMLSerializers::SERIALIZER
-      doc = xml.new_document
-      default_collection_element_name = lambda {ActiveSupport::Inflector.pluralize(ActiveSupport::Inflector.underscore(self.model.to_s)).tr("/", "-")}
-      root = xml.root_node(doc, opts[:collection_element_name] || default_collection_element_name[], {'type' => 'array'})
-      self.each do |item|
-        item.to_xml_document(opts, doc)
-      end
-      doc
-    end
-  end
-
-  if Serialize::Support.dm_validations_loaded?
-
-    module Validations
-      class ValidationErrors
+    module ValidationErrors
+      module ToXml
         def to_xml(opts = {})
           to_xml_document(opts).to_s
         end
@@ -86,6 +66,33 @@ module DataMapper
 
           doc
         end
+      end
+    end
+
+  end
+
+  class Collection
+    def to_xml(opts = {})
+      to_xml_document(opts).to_s
+    end
+
+    def to_xml_document(opts = {})
+      xml = DataMapper::Serialize::XMLSerializers::SERIALIZER
+      doc = xml.new_document
+      default_collection_element_name = lambda {ActiveSupport::Inflector.pluralize(ActiveSupport::Inflector.underscore(self.model.to_s)).tr("/", "-")}
+      root = xml.root_node(doc, opts[:collection_element_name] || default_collection_element_name[], {'type' => 'array'})
+      self.each do |item|
+        item.to_xml_document(opts, doc)
+      end
+      doc
+    end
+  end
+
+  if Serialize.dm_validations_loaded?
+
+    module Validations
+      class ValidationErrors
+        include DataMapper::Serialize::ValidationErrors::ToXml
       end
     end
 

@@ -11,6 +11,11 @@ require 'dm-core'
 
 module DataMapper
   module Serialize
+
+    def self.dm_validations_loaded?
+      DataMapper.const_defined?("Validations")
+    end
+
     # Returns propreties to serialize based on :only or :exclude arrays, if provided
     # :only takes precendence over :exclude
     #
@@ -28,12 +33,6 @@ module DataMapper
       end
     end
 
-    Model.append_inclusions self
-
-    class Support
-      def self.dm_validations_loaded?
-        DataMapper.const_defined?("Validations")
-      end
-    end
   end
+  Model.append_inclusions(Serialize)
 end

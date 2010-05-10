@@ -42,6 +42,15 @@ module DataMapper
         result
       end
     end
+
+    module ValidationErrors
+      module ToJson
+        def to_json(*args)
+          errors.to_hash.to_json
+        end
+      end
+    end
+
   end
 
 
@@ -78,15 +87,14 @@ module DataMapper
     end
   end
 
-  if Serialize::Support.dm_validations_loaded?
+  if Serialize.dm_validations_loaded?
 
     module Validations
       class ValidationErrors
-        def to_json(*args)
-          errors.to_hash.to_json
-        end
+        include DataMapper::Serialize::ValidationErrors::ToJson
       end
     end
 
   end
+
 end

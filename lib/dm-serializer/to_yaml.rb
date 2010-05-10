@@ -32,6 +32,15 @@ module DataMapper
         end
       end
     end
+
+    module ValidationErrors
+      module ToYaml
+        def to_yaml(*args)
+          errors.to_hash.to_yaml(*args)
+        end
+      end
+    end
+
   end
 
   class Collection
@@ -45,13 +54,11 @@ module DataMapper
     end
   end
 
-  if Serialize::Support.dm_validations_loaded?
+  if Serialize.dm_validations_loaded?
 
     module Validations
       class ValidationErrors
-        def to_yaml(*args)
-          errors.to_hash.to_yaml(*args)
-        end
+        include DataMapper::Serialize::ValidationErrors::ToYaml
       end
     end
 
