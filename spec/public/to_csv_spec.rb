@@ -35,7 +35,7 @@ if defined?(::CSV)
       result.split("\n")[1].split(',')[0..3].should == ['10','20','Berta','Guernsey']
     end
 
-    it 'should integration with dm-validations by providing one line per error' do
+    it 'should integrate with dm-validations by providing one line per error' do
       planet = Planet.create(:name => 'a')
       result = planet.errors.to_csv.gsub(/[[:space:]]+\n/, "\n").split("\n")
       result.should include("name,#{planet.errors[:name][0]}")
@@ -43,18 +43,22 @@ if defined?(::CSV)
       result.length.should == 2
     end
 
-    describe "multiple repositories" do
-      before(:all) do
-        QuanTum::Cat.auto_migrate!
-        DataMapper.repository(:alternate){ QuanTum::Cat.auto_migrate! }
+    with_alternate_adapter do
+
+      describe "multiple repositories" do
+        before(:all) do
+          QuanTum::Cat.auto_migrate!
+          DataMapper.repository(:alternate){ QuanTum::Cat.auto_migrate! }
+        end
+
+        it "should use the repsoitory for the model" do
+          gerry = QuanTum::Cat.create(:name => "gerry")
+          george = DataMapper.repository(:alternate){ QuanTum::Cat.create(:name => "george", :is_dead => false) }
+          gerry.to_csv.should_not match(/false/)
+          george.to_csv.should match(/false/)
+        end
       end
 
-      it "should use the repsoitory for the model" do
-        gerry = QuanTum::Cat.create(:name => "gerry")
-        george = DataMapper.repository(:alternate){ QuanTum::Cat.create(:name => "george", :is_dead => false) }
-        gerry.to_csv.should_not match(/false/)
-        george.to_csv.should match(/false/)
-      end
     end
   end
 else

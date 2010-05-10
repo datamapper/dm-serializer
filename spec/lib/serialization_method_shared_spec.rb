@@ -238,18 +238,23 @@ share_examples_for 'A serialization method' do
     end
   end
 
-  describe "(multiple repositories)" do
-    before(:all) do
-      QuanTum::Cat.auto_migrate!
-      DataMapper.repository(:alternate) { QuanTum::Cat.auto_migrate! }
+  with_alternate_adapter do
+
+    describe "(multiple repositories)" do
+      before(:all) do
+        QuanTum::Cat.auto_migrate!
+        DataMapper.repository(:alternate) { QuanTum::Cat.auto_migrate! }
+      end
+
+      it "should use the repsoitory for the model" do
+        alternate_repo = DataMapper::Spec.spec_adapters[:alternate].name
+        gerry = QuanTum::Cat.create(:name => "gerry")
+        george = DataMapper.repository(alternate_repo){ QuanTum::Cat.create(:name => "george", :is_dead => false) }
+        @harness.test(gerry )['is_dead'].should be(nil)
+        @harness.test(george)['is_dead'].should be(false)
+      end
     end
 
-    it "should use the repsoitory for the model" do
-      gerry = QuanTum::Cat.create(:name => "gerry")
-      george = DataMapper.repository(:alternate){ QuanTum::Cat.create(:name => "george", :is_dead => false) }
-      @harness.test(gerry )['is_dead'].should be(nil)
-      @harness.test(george)['is_dead'].should be(false)
-    end
   end
 
   it 'should integrate with dm-validations' do
