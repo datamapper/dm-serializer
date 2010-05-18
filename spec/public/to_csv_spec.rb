@@ -47,8 +47,12 @@ if defined?(::CSV)
 
       describe "multiple repositories" do
         before(:all) do
-          QuanTum::Cat.auto_migrate!
-          DataMapper.repository(:alternate){ QuanTum::Cat.auto_migrate! }
+          [ :default, :alternate ].each do |repository_name|
+            DataMapper.repository(repository_name) do
+              QuanTum::Cat.auto_migrate!
+              QuanTum::Cat.all.destroy!
+            end
+          end
         end
 
         it "should use the repsoitory for the model" do
