@@ -7,6 +7,7 @@ if defined?(::CSV)
     #
 
     before(:all) do
+      DataMapper.finalize
       query = DataMapper::Query.new(DataMapper::repository(:default), Cow)
 
       resources = [
@@ -49,6 +50,7 @@ if defined?(::CSV)
         before(:all) do
           [ :default, :alternate ].each do |repository_name|
             DataMapper.repository(repository_name) do
+              DataMapper.finalize
               QuanTum::Cat.auto_migrate!
               QuanTum::Cat.all.destroy!
             end

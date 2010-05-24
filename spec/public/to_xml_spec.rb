@@ -18,6 +18,7 @@ require 'spec_helper'
     #
 
     before(:all) do
+      DataMapper.finalize
       @harness = Class.new(SerializerTestHarness) do
         def method_name
           :to_xml

@@ -6,6 +6,7 @@ describe DataMapper::Serialize, '#to_json' do
   #
 
   before(:all) do
+    DataMapper.finalize
     DataMapper.auto_migrate!
     query = DataMapper::Query.new(DataMapper::repository(:default), Cow)
 
