@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 share_examples_for 'A serialization method that also serializes core classes' do
   # This spec ensures that we don't break any serialization methods attached
   # to core classes, such as Array
