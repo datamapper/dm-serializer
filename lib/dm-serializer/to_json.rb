@@ -12,27 +12,24 @@ module DataMapper
 
       result = {}
 
-      propset = properties_to_serialize(options)
-
-      propset.each do |property|
-        result[property.name] = __send__(property.name)
+      properties_to_serialize(options).each do |property|
+        property_name = property.name
+        result[property_name] = __send__(property_name)
       end
 
       # add methods
-      (options[:methods] || []).each do |meth|
-        if self.respond_to?(meth)
-          result[meth] = __send__(meth)
-        end
+      Array(options[:methods]).each do |method|
+        next unless respond_to?(method)
+        result[method] = __send__(method)
       end
 
       # Note: if you want to include a whole other model via relation, use :methods
       # comments.to_json(:relationships=>{:user=>{:include=>[:first_name],:methods=>[:age]}})
       # add relationships
       # TODO: This needs tests and also needs to be ported to #to_xml and #to_yaml
-      (options[:relationships] || {}).each do |rel,opts|
-        if self.respond_to?(rel)
-          result[rel] = send(rel).to_json(opts.merge(:to_json => false))
-        end
+      (options[:relationships] || {}).each do |relationship_name, opts|
+        next unless respond_to?(relationship_name)
+        result[relationship_name] = __send__(relationship_name).to_json(opts.merge(:to_json => false))
       end
 
       # default to making JSON
