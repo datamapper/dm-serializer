@@ -10,7 +10,7 @@ share_examples_for 'A serialization method that also serializes core classes' do
   end
 
   before(:each) do
-    DataMapper::Model.descendants.each { |model| model.all.destroy! }
+    DataMapper::Model.descendants.each { |model| model.destroy! }
   end
 
   it 'serializes an array of extended objects' do
@@ -53,7 +53,7 @@ share_examples_for 'A serialization method' do
   end
 
   before(:each) do
-    DataMapper::Model.descendants.each { |model| model.all.destroy! }
+    DataMapper::Model.descendants.each { |model| model.destroy! }
   end
 
   describe '(serializing single resources)' do
@@ -239,7 +239,7 @@ share_examples_for 'A serialization method' do
         [ :default, :alternate ].each do |repository_name|
           DataMapper.repository(repository_name) do
             QuanTum::Cat.auto_migrate!
-            QuanTum::Cat.all.destroy!
+            QuanTum::Cat.destroy!
           end
         end
       end

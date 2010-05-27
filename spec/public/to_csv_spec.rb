@@ -52,7 +52,7 @@ if defined?(::CSV)
             DataMapper.repository(repository_name) do
               DataMapper.finalize
               QuanTum::Cat.auto_migrate!
-              QuanTum::Cat.all.destroy!
+              QuanTum::Cat.destroy!
             end
           end
         end
