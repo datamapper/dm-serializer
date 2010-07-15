@@ -4,13 +4,18 @@ require 'json'
 
 module DataMapper
   module Serialize
-    # Serialize a Resource to JavaScript Object Notation (JSON; RFC 4627)
     #
-    # @return <String> a JSON representation of the Resource
-    def to_json(*args)
-      options = args.first || {}
-      options = options.to_h if options.respond_to?(:to_h)
-
+    # Converts the resource into a hash of properties.
+    #
+    # @param [Hash] options
+    #   Additional options.
+    #
+    # @return [Hash{String => String}]
+    #   The hash of resources properties.
+    #
+    # @since 1.0.1
+    #
+    def as_json(options={})
       result = {}
 
       properties_to_serialize(options).each do |property|
@@ -32,6 +37,18 @@ module DataMapper
         next unless respond_to?(relationship_name)
         result[relationship_name] = __send__(relationship_name).to_json(opts.merge(:to_json => false))
       end
+
+      result
+    end
+
+    # Serialize a Resource to JavaScript Object Notation (JSON; RFC 4627)
+    #
+    # @return <String> a JSON representation of the Resource
+    def to_json(*args)
+      options = args.first || {}
+      options = options.to_h if options.respond_to?(:to_h)
+
+      result = as_json(options)
 
       # default to making JSON
       if options.fetch(:to_json, true)
