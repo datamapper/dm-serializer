@@ -17,9 +17,13 @@ module DataMapper
     # Serialize a Resource to comma-separated values (CSV).
     #
     # @return <String> a CSV representation of the Resource
-    def to_csv(writer = '')
-      CSV.generate(writer) do |csv|
-        row = model.properties(repository.name).map do |property|
+    def to_csv(*args)
+      options = args.first || {}
+      options = options.to_h if options.respond_to?(:to_h)
+      options[:writer] = '' unless options.has_key? :writer
+      
+      CSV.generate(options[:writer]) do |csv|
+        row = properties_to_serialize(options).map do |property|
           __send__(property.name).to_s
         end
         csv << row
@@ -28,8 +32,12 @@ module DataMapper
 
     module ValidationErrors
       module ToCsv
-        def to_csv(writer = '')
-          CSV.generate(writer) do |csv|
+        def to_csv(*args)
+          options = args.first || {}
+          options = options.to_h if options.respond_to?(:to_h)
+          options[:writer] = '' unless options.has_key? :writer
+
+          CSV.generate(options[:writer]) do |csv|
             errors.each do |key, value|
               value.each do |error|
                 row = []
@@ -45,10 +53,10 @@ module DataMapper
   end
 
   class Collection
-    def to_csv
+    def to_csv(*args)
       result = ''
       each do |item|
-        result << item.to_csv + "\n"
+        result << item.to_csv(args.first) + "\n"
       end
       result
     end
