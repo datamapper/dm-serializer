@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Guy van den Berg"]
-  s.date = %q{2010-06-08}
+  s.date = %q{2010-08-16}
   s.description = %q{DataMapper plugin for serializing Resources and Collections}
   s.email = %q{vandenberg.guy [a] gmail [d] com}
   s.extra_rdoc_files = [
@@ -64,16 +64,16 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{DataMapper plugin for serializing Resources and Collections}
   s.test_files = [
-    "spec/fixtures/cow.rb",
-     "spec/fixtures/planet.rb",
+    "spec/lib/serialization_method_shared_spec.rb",
+     "spec/fixtures/cow.rb",
      "spec/fixtures/quan_tum_cat.rb",
-     "spec/lib/serialization_method_shared_spec.rb",
-     "spec/public/serializer_spec.rb",
-     "spec/public/to_csv_spec.rb",
+     "spec/fixtures/planet.rb",
+     "spec/spec_helper.rb",
      "spec/public/to_json_spec.rb",
-     "spec/public/to_xml_spec.rb",
+     "spec/public/to_csv_spec.rb",
      "spec/public/to_yaml_spec.rb",
-     "spec/spec_helper.rb"
+     "spec/public/serializer_spec.rb",
+     "spec/public/to_xml_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
