@@ -57,6 +57,7 @@ Gem::Specification.new do |s|
      "tasks/yard.rake",
      "tasks/yardstick.rake"
   ]
+  s.has_rdoc = %q{yard}
   s.homepage = %q{http://github.com/datamapper/dm-serializer}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
