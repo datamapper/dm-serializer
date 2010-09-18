@@ -63,3 +63,9 @@ describe DataMapper::Serialize, '#to_json' do
   end
 
 end
+
+describe DataMapper::Serialize, '#as_json' do
+  it "handles nil for options" do
+    expect { Cow.new.as_json(nil) }.to_not raise_error
+  end
+end

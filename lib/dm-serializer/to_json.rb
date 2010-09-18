@@ -16,7 +16,8 @@ module DataMapper
     # @since 1.0.1
     #
     def as_json(options = {})
-      result = {}
+      options = {} if options.nil?
+      result  = {}
 
       properties_to_serialize(options).each do |property|
         property_name = property.name
