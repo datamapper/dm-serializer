@@ -57,4 +57,9 @@ describe DataMapper::Serialize, '#to_json' do
 
   it "has :repository option to override used repository"
 
+  it "can be serialized within a Hash" do
+    hash = { 'cows' => Cow.all }
+    JSON.parse(hash.to_json).should == hash
+  end
+
 end

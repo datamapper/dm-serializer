@@ -88,13 +88,14 @@ module DataMapper
 
   class Collection
     def to_json(*args)
-      opts = args.first || {}
+      options = args.first
+      options = {} unless options.kind_of?(Hash)
 
-      options = opts.merge(:to_json => false)
-      collection = map { |e| e.to_json(options) }
+      resource_options = options.merge(:to_json => false)
+      collection = map { |resource| resource.to_json(resource_options) }
 
       # default to making JSON
-      if opts.fetch(:to_json, true)
+      if options.fetch(:to_json, true)
         collection.to_json
       else
         collection
