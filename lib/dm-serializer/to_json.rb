@@ -15,7 +15,7 @@ module DataMapper
     #
     # @since 1.0.1
     #
-    def as_json(options={})
+    def as_json(options = {})
       result = {}
 
       properties_to_serialize(options).each do |property|
