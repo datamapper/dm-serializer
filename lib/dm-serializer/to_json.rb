@@ -45,8 +45,8 @@ module DataMapper
     #
     # @return <String> a JSON representation of the Resource
     def to_json(*args)
-      options = args.first || {}
-      options = options.to_h if options.respond_to?(:to_h)
+      options = args.first
+      options = {} unless options.kind_of?(Hash)
 
       result = as_json(options)
 
