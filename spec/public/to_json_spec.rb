@@ -68,4 +68,8 @@ describe DataMapper::Serialize, '#as_json' do
   it "handles nil for options" do
     expect { Cow.new.as_json(nil) }.to_not raise_error
   end
+
+  it "serializes Discriminator types as strings" do
+    Motorcycle.new.as_json[:type].should == "Motorcycle" 
+  end
 end

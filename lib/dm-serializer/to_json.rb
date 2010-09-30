@@ -21,7 +21,13 @@ module DataMapper
 
       properties_to_serialize(options).each do |property|
         property_name = property.name
-        result[property_name] = __send__(property_name)
+        value = __send__(property_name)
+        result[property_name] = case property
+                                when DataMapper::Property::Discriminator
+                                  value.to_s
+                                else
+                                  value
+                                end
       end
 
       # add methods
