@@ -70,6 +70,6 @@ describe DataMapper::Serialize, '#as_json' do
   end
 
   it "serializes Discriminator types as strings" do
-    Motorcycle.new.as_json[:type].should == "Motorcycle" 
+    Motorcycle.new.as_json[:type].should == "Motorcycle"
   end
 end
