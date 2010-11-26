@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Guy van den Berg"]
-  s.date = %q{2010-09-07}
+  s.date = %q{2010-11-26}
   s.description = %q{DataMapper plugin for serializing Resources and Collections}
   s.email = %q{vandenberg.guy [a] gmail [d] com}
   s.extra_rdoc_files = [
@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
      "spec/fixtures/cow.rb",
      "spec/fixtures/planet.rb",
      "spec/fixtures/quan_tum_cat.rb",
+     "spec/fixtures/vehicle.rb",
      "spec/lib/serialization_method_shared_spec.rb",
      "spec/public/serializer_spec.rb",
      "spec/public/to_csv_spec.rb",
@@ -50,9 +51,6 @@ Gem::Specification.new do |s|
      "spec/rcov.opts",
      "spec/spec.opts",
      "spec/spec_helper.rb",
-     "tasks/ci.rake",
-     "tasks/local_gemfile.rake",
-     "tasks/metrics.rake",
      "tasks/spec.rake",
      "tasks/yard.rake",
      "tasks/yardstick.rake"
@@ -68,6 +66,7 @@ Gem::Specification.new do |s|
     "spec/fixtures/cow.rb",
      "spec/fixtures/planet.rb",
      "spec/fixtures/quan_tum_cat.rb",
+     "spec/fixtures/vehicle.rb",
      "spec/lib/serialization_method_shared_spec.rb",
      "spec/public/serializer_spec.rb",
      "spec/public/to_csv_spec.rb",
