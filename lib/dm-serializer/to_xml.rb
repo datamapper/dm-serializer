@@ -29,7 +29,7 @@ module DataMapper
         xml.add_node(root, property.name.to_s, value, attrs)
       end
 
-      (opts[:methods] || []).each do |meth|
+      Array(opts[:methods]).each do |meth|
         if self.respond_to?(meth)
           xml_name = meth.to_s.gsub(/[^a-z0-9_]/, '')
           value = __send__(meth)
