@@ -21,7 +21,7 @@ module DataMapper
             map.add(property.name, value.is_a?(Class) ? value.to_s : value)
           end
           # add methods
-          (opts[:methods] || []).each do |meth|
+          Array(opts[:methods]).each do |meth|
             if respond_to?(meth)
               map.add(meth.to_sym, __send__(meth))
             end

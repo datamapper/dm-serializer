@@ -102,7 +102,7 @@ share_examples_for 'A serialization method' do
       result.values_at("name", "aphelion").should == ["Mars", nil]
     end
 
-    it "should serialize values returned by methods given to :methods option" do
+    it "should serialize values returned by an array of methods given to :methods option" do
       planet = Planet.new(
         :name     => "Mars",
         :aphelion => 249_209_300.4
@@ -112,6 +112,16 @@ share_examples_for 'A serialization method' do
       # XML currently can't serialize ? at the end of method names
       boolean_method_name = @harness.method_name == :to_xml ? "has_known_form_of_life" : "has_known_form_of_life?"
       result.values_at("category", boolean_method_name).should == ["terrestrial", false]
+    end
+
+    it "should serialize values returned by a single method given to :methods option" do
+      planet = Planet.new(
+        :name     => "Mars",
+        :aphelion => 249_209_300.4
+      )
+
+      result = @harness.test(planet, :methods => :category)
+      result.values_at("category").should == ["terrestrial"]
     end
 
     it "should only include properties given to :only option" do
