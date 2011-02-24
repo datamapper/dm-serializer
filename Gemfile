@@ -25,12 +25,17 @@ end
 group :development do # Development dependencies (as in the gemspec)
 
   gem 'dm-validations', DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-validations#{REPO_POSTFIX}"
-  gem 'nokogiri',       '~> 1.4.1'
-  gem 'libxml-ruby',    '~> 1.1.4', :platforms => [ :ruby, :mswin ]
 
   gem 'rake',           '~> 0.8.7'
   gem 'rspec',          '~> 1.3.1'
   gem 'jeweler',        '~> 1.5.2'
+
+end
+
+group :testing do # Testing dependencies
+
+  gem 'nokogiri',       '~> 1.4.1'
+  gem 'libxml-ruby',    '~> 1.1.4', :platforms => [ :mri, :mswin ]
 
 end
 

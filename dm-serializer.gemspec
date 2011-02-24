@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Guy van den Berg"]
-  s.date = %q{2011-02-19}
+  s.date = %q{2011-02-23}
   s.description = %q{DataMapper plugin for serializing Resources and Collections}
   s.email = %q{vandenberg.guy [a] gmail [d] com}
   s.extra_rdoc_files = [
@@ -83,8 +83,6 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<fastercsv>, ["~> 1.5.3"])
       s.add_runtime_dependency(%q<json>, ["~> 1.5.1"])
       s.add_development_dependency(%q<dm-validations>, ["~> 1.0.2"])
-      s.add_development_dependency(%q<nokogiri>, ["~> 1.4.1"])
-      s.add_development_dependency(%q<libxml-ruby>, ["~> 1.1.4"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_development_dependency(%q<rspec>, ["~> 1.3.1"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
@@ -95,8 +93,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<fastercsv>, ["~> 1.5.3"])
       s.add_dependency(%q<json>, ["~> 1.5.1"])
       s.add_dependency(%q<dm-validations>, ["~> 1.0.2"])
-      s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
-      s.add_dependency(%q<libxml-ruby>, ["~> 1.1.4"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_dependency(%q<rspec>, ["~> 1.3.1"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
@@ -108,8 +104,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<fastercsv>, ["~> 1.5.3"])
     s.add_dependency(%q<json>, ["~> 1.5.1"])
     s.add_dependency(%q<dm-validations>, ["~> 1.0.2"])
-    s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
-    s.add_dependency(%q<libxml-ruby>, ["~> 1.1.4"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
     s.add_dependency(%q<rspec>, ["~> 1.3.1"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
