@@ -22,7 +22,7 @@ group :runtime do # Runtime dependencies (as in the gemspec)
 
 end
 
-group(:development) do # Development dependencies (as in the gemspec)
+group :development do # Development dependencies (as in the gemspec)
 
   gem 'dm-validations', DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-validations#{REPO_POSTFIX}"
   gem 'nokogiri',       '~> 1.4.1'
