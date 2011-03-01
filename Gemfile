@@ -18,7 +18,7 @@ group :runtime do
 
   gem 'dm-core',   DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}"
   gem 'fastercsv', '~> 1.5.3'
-  gem 'json',      '~> 1.5.1'
+  gem 'json',      '~> 1.4.6'
 
 end
 
