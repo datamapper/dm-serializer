@@ -31,13 +31,19 @@ module DataMapper
         result[method] = __send__(method)
       end
 
-      # Note: if you want to include a whole other model via relation, use :methods
-      # comments.to_json(:relationships=>{:user=>{:include=>[:first_name],:methods=>[:age]}})
-      # add relationships
-      # TODO: This needs tests and also needs to be ported to #to_xml and #to_yaml
-      (options[:relationships] || {}).each do |relationship_name, opts|
-        next unless respond_to?(relationship_name)
-        result[relationship_name] = __send__(relationship_name).to_json(opts.merge(:to_json => false))
+      # Note: if you want to include a whole other model via relation, use
+      # :methods:
+      #
+      #   comments.to_json(:relationships=>{:user=>{:include=>[:first_name],:methods=>[:age]}})
+      #
+      # TODO: This needs tests and also needs to be ported to #to_xml and
+      # #to_yaml
+      if options[:relationships]
+        options[:relationships].each do |relationship_name, opts|
+          if respond_to?(relationship_name)
+            result[relationship_name] = __send__(relationship_name).to_json(opts.merge(:to_json => false))
+          end
+        end
       end
 
       result
