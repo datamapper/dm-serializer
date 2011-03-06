@@ -63,7 +63,7 @@ module DataMapper
     module ValidationErrors
       module ToJson
         def to_json(*args)
-          errors.to_hash.to_json
+          DataMapper::Ext::Array.to_hash(errors).to_json
         end
       end
     end
