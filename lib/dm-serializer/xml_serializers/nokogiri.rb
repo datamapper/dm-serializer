@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 module DataMapper
   module Serialize
     module XMLSerializers

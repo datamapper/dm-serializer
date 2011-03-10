@@ -8,7 +8,7 @@ module DataMapper
     #
     # @return <REXML::Document> an XML representation of this Resource
     def to_xml(opts = {})
-      xml = XMLSerializers::SERIALIZER
+      xml = XMLSerializers.serializer
       xml.output(to_xml_document(opts)).to_s
     end
 
@@ -19,7 +19,7 @@ module DataMapper
     # add_property_node
     # add_node
     def to_xml_document(opts={}, doc = nil)
-      xml = XMLSerializers::SERIALIZER
+      xml = XMLSerializers.serializer
       doc ||= xml.new_document
       default_xml_element_name = lambda { DataMapper::Inflector.underscore(model.name).tr("/", "-") }
       root = xml.root_node(doc, opts[:element_name] || default_xml_element_name[])
@@ -52,7 +52,7 @@ module DataMapper
         end
 
         def to_xml_document(opts = {})
-          xml = DataMapper::Serialize::XMLSerializers::SERIALIZER
+          xml = DataMapper::Serialize::XMLSerializers.serializer
           doc = xml.new_document
           root = xml.root_node(doc, "errors", {'type' => 'hash'})
 
@@ -77,7 +77,7 @@ module DataMapper
     end
 
     def to_xml_document(opts = {})
-      xml = DataMapper::Serialize::XMLSerializers::SERIALIZER
+      xml = DataMapper::Serialize::XMLSerializers.serializer
       doc = xml.new_document
       default_collection_element_name = lambda {DataMapper::Inflector.pluralize(DataMapper::Inflector.underscore(self.model.to_s)).tr("/", "-")}
       root = xml.root_node(doc, opts[:collection_element_name] || default_collection_element_name[], {'type' => 'array'})

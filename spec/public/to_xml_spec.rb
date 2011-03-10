@@ -1,14 +1,12 @@
 require 'spec_helper'
+require 'rexml/document'
 
-{
-  'REXML'    => [],
-  'LibXML'   => [ 'libxml-ruby', 'libxml'   ],
-  'Nokogiri' => [ 'nokogiri',    'nokogiri' ],
-}.each do |lib, (gem_name, file_to_require)|
+[:rexml, :libxml, :nokogiri].each do |lib|
   begin
-    require file_to_require if file_to_require
-  rescue LoadError
-    warn "[WARNING] Cannot find gem '#{gem_name}', not running #to_xml specs for #{lib}"
+    DataMapper::Serialize::XMLSerializers.serializer = lib
+  rescue LoadError => e
+    warn "[WARNING] #{e.message}"
+    warn "[WARNING] Not running #to_xml specs for #{lib}"
     next
   end
 
@@ -19,7 +17,7 @@ require 'spec_helper'
 
     before(:all) do
       DataMapper.finalize
-      @harness = Class.new(SerializerTestHarness) do
+      @harness = Class.new(SerializerTestHarness) {
         def method_name
           :to_xml
         end
@@ -58,9 +56,7 @@ require 'spec_helper'
           value = value.to_i if value && ["integer", "datamapper::types::serial"].include?(type)
           value
         end
-      end.new
-      DataMapper::Serialize::XMLSerializers.instance_eval { remove_const('SERIALIZER') }
-      DataMapper::Serialize::XMLSerializers::SERIALIZER = DataMapper::Serialize::XMLSerializers::const_get(lib)
+      }.new
     end
 
     it_should_behave_like "A serialization method"

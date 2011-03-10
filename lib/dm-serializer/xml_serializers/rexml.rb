@@ -1,3 +1,5 @@
+require 'rexml/document'
+
 module DataMapper
   module Serialize
     module XMLSerializers

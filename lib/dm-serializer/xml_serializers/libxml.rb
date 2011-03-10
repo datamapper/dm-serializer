@@ -1,3 +1,5 @@
+require 'libxml'
+
 module DataMapper
   module Serialize
     module XMLSerializers
