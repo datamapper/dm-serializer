@@ -1,12 +1,13 @@
 require 'dm-serializer/common'
 require 'dm-serializer/xml_serializers'
-require 'rexml/document'
 
 module DataMapper
   module Serialize
-    # Serialize a Resource to XML
+    # Serialize a Resource to XML.
     #
-    # @return <REXML::Document> an XML representation of this Resource
+    # @return [LibXML::Document, Nokogiri::Document, REXML::Document]
+    #   An XML representation of this Resource.
+    #
     def to_xml(opts = {})
       xml = XMLSerializers.serializer
       xml.output(to_xml_document(opts)).to_s
