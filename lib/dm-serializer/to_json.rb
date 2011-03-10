@@ -3,7 +3,7 @@ require 'dm-serializer/common'
 require 'json'
 
 module DataMapper
-  module Serialize
+  module Serializer
     #
     # Converts the resource into a hash of properties.
     #
@@ -31,13 +31,19 @@ module DataMapper
         result[method] = __send__(method)
       end
 
-      # Note: if you want to include a whole other model via relation, use :methods
-      # comments.to_json(:relationships=>{:user=>{:include=>[:first_name],:methods=>[:age]}})
-      # add relationships
-      # TODO: This needs tests and also needs to be ported to #to_xml and #to_yaml
-      (options[:relationships] || {}).each do |relationship_name, opts|
-        next unless respond_to?(relationship_name)
-        result[relationship_name] = __send__(relationship_name).to_json(opts.merge(:to_json => false))
+      # Note: if you want to include a whole other model via relation, use
+      # :methods:
+      #
+      #   comments.to_json(:relationships=>{:user=>{:include=>[:first_name],:methods=>[:age]}})
+      #
+      # TODO: This needs tests and also needs to be ported to #to_xml and
+      # #to_yaml
+      if options[:relationships]
+        options[:relationships].each do |relationship_name, opts|
+          if respond_to?(relationship_name)
+            result[relationship_name] = __send__(relationship_name).to_json(opts.merge(:to_json => false))
+          end
+        end
       end
 
       result
@@ -87,11 +93,11 @@ module DataMapper
     end
   end
 
-  if Serialize.dm_validations_loaded?
+  if Serializer.dm_validations_loaded?
 
     module Validations
       class ValidationErrors
-        include DataMapper::Serialize::ValidationErrors::ToJson
+        include DataMapper::Serializer::ValidationErrors::ToJson
       end
     end
 

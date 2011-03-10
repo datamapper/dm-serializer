@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DataMapper::Serialize, '#to_yaml' do
+describe DataMapper::Serializer, '#to_yaml' do
   #
   # ==== yummy YAML
   #

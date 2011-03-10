@@ -1,7 +1,7 @@
 require 'rexml/document'
 
 module DataMapper
-  module Serialize
+  module Serializer
     module XML
       module REXML
         def self.new_document
@@ -14,7 +14,11 @@ module DataMapper
 
         def self.add_node(parent, name, value, attrs = {})
           node = parent.add_element(name)
-          attrs.each {|attr_name, attr_val| node.attributes[attr_name] = attr_val}
+
+          attrs.each do |attr_name, attr_val|
+            node.attributes[attr_name] = attr_val
+          end
+
           node << ::REXML::Text.new(value.to_s) unless value.nil?
           node
         end

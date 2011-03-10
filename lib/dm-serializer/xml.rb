@@ -1,5 +1,5 @@
 module DataMapper
-  module Serialize
+  module Serializer
     module XML
       # The supported XML Serializers
       SERIALIZERS = {
