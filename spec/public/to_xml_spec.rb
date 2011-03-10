@@ -11,12 +11,9 @@ require 'rexml/document'
   end
 
   describe DataMapper::Serialize, "#to_xml using #{lib}" do
-    #
-    # ==== enterprisey XML
-    #
-
     before(:all) do
       DataMapper.finalize
+
       @harness = Class.new(SerializerTestHarness) {
         def method_name
           :to_xml
