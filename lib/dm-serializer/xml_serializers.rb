@@ -3,7 +3,7 @@ require 'dm-serializer/xml_serializers/nokogiri'
 require 'dm-serializer/xml_serializers/libxml'
 
 module DataMapper
-  module Serialize
+  module Serializer
     module XMLSerializers
       SERIALIZER = if defined?(::LibXML)
                      LibXML

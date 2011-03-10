@@ -3,7 +3,7 @@ require 'dm-serializer/xml_serializers'
 require 'rexml/document'
 
 module DataMapper
-  module Serialize
+  module Serializer
     # Serialize a Resource to XML
     #
     # @return [REXML::Document]
@@ -69,7 +69,7 @@ module DataMapper
         end
 
         def to_xml_document(opts = {})
-          xml = DataMapper::Serialize::XMLSerializers::SERIALIZER
+          xml = DataMapper::Serializer::XMLSerializers::SERIALIZER
           doc = xml.new_document
           root = xml.root_node(doc, "errors", {'type' => 'hash'})
 
@@ -95,7 +95,7 @@ module DataMapper
     end
 
     def to_xml_document(opts = {})
-      xml = DataMapper::Serialize::XMLSerializers::SERIALIZER
+      xml = DataMapper::Serializer::XMLSerializers::SERIALIZER
       doc = xml.new_document
 
       default_collection_element_name = lambda {
@@ -116,11 +116,11 @@ module DataMapper
     end
   end
 
-  if Serialize.dm_validations_loaded?
+  if Serializer.dm_validations_loaded?
 
     module Validations
       class ValidationErrors
-        include DataMapper::Serialize::ValidationErrors::ToXml
+        include DataMapper::Serializer::ValidationErrors::ToXml
       end
     end
 

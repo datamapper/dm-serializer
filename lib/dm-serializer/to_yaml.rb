@@ -1,7 +1,7 @@
 require 'dm-serializer/common'
 
 module DataMapper
-  module Serialize
+  module Serializer
     # Serialize a Resource to YAML
     #
     # @return [YAML]
@@ -57,11 +57,11 @@ module DataMapper
     end
   end
 
-  if Serialize.dm_validations_loaded?
+  if Serializer.dm_validations_loaded?
 
     module Validations
       class ValidationErrors
-        include DataMapper::Serialize::ValidationErrors::ToYaml
+        include DataMapper::Serializer::ValidationErrors::ToYaml
       end
     end
 

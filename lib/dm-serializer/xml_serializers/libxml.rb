@@ -1,5 +1,5 @@
 module DataMapper
-  module Serialize
+  module Serializer
     module XMLSerializers
       module LibXML
         def self.new_document

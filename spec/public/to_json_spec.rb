@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DataMapper::Serialize, '#to_json' do
+describe DataMapper::Serializer, '#to_json' do
   #
   # ==== ajaxy JSON
   #
@@ -64,7 +64,7 @@ describe DataMapper::Serialize, '#to_json' do
 
 end
 
-describe DataMapper::Serialize, '#as_json' do
+describe DataMapper::Serializer, '#as_json' do
   it "handles nil for options" do
     expect { Cow.new.as_json(nil) }.to_not raise_error
   end

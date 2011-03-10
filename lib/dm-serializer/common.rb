@@ -10,7 +10,7 @@ end
 require 'dm-core'
 
 module DataMapper
-  module Serialize
+  module Serializer
     def self.dm_validations_loaded?
       DataMapper.const_defined?("Validations")
     end
@@ -36,5 +36,5 @@ module DataMapper
     end
   end
 
-  Model.append_inclusions(Serialize)
+  Model.append_inclusions(Serializer)
 end

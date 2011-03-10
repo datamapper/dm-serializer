@@ -3,7 +3,7 @@ require 'dm-serializer/common'
 require 'json'
 
 module DataMapper
-  module Serialize
+  module Serializer
     #
     # Converts the resource into a hash of properties.
     #
@@ -93,11 +93,11 @@ module DataMapper
     end
   end
 
-  if Serialize.dm_validations_loaded?
+  if Serializer.dm_validations_loaded?
 
     module Validations
       class ValidationErrors
-        include DataMapper::Serialize::ValidationErrors::ToJson
+        include DataMapper::Serializer::ValidationErrors::ToJson
       end
     end
 

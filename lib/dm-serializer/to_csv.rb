@@ -13,7 +13,7 @@ else
 end
 
 module DataMapper
-  module Serialize
+  module Serializer
     # Serialize a Resource to comma-separated values (CSV).
     #
     # @return <String> a CSV representation of the Resource
@@ -54,11 +54,11 @@ module DataMapper
     end
   end
 
-  if Serialize.dm_validations_loaded?
+  if Serializer.dm_validations_loaded?
 
     module Validations
       class ValidationErrors
-        include DataMapper::Serialize::ValidationErrors::ToCsv
+        include DataMapper::Serializer::ValidationErrors::ToCsv
       end
     end
 

@@ -12,7 +12,7 @@ require 'spec_helper'
     next
   end
 
-  describe DataMapper::Serialize, "#to_xml using #{lib}" do
+  describe DataMapper::Serializer, "#to_xml using #{lib}" do
     #
     # ==== enterprisey XML
     #
@@ -59,8 +59,8 @@ require 'spec_helper'
           value
         end
       end.new
-      DataMapper::Serialize::XMLSerializers.instance_eval { remove_const('SERIALIZER') }
-      DataMapper::Serialize::XMLSerializers::SERIALIZER = DataMapper::Serialize::XMLSerializers::const_get(lib)
+      DataMapper::Serializer::XMLSerializers.instance_eval { remove_const('SERIALIZER') }
+      DataMapper::Serializer::XMLSerializers::SERIALIZER = DataMapper::Serializer::XMLSerializers::const_get(lib)
     end
 
     it_should_behave_like "A serialization method"
