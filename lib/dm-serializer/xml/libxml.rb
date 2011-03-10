@@ -1,15 +1,15 @@
-require 'nokogiri'
+require 'libxml'
 
 module DataMapper
   module Serialize
-    module XMLSerializers
-      module Nokogiri
+    module XML
+      module LibXML
         def self.new_document
-          ::Nokogiri::XML::Document.new
+          ::LibXML::XML::Document.new
         end
 
         def self.root_node(doc, name, attrs = {})
-          root = ::Nokogiri::XML::Node.new(name, doc)
+          root = ::LibXML::XML::Node.new(name)
           attrs.each do |attr_name, attr_val|
             root[attr_name] = attr_val
           end
@@ -18,15 +18,17 @@ module DataMapper
         end
 
         def self.add_node(parent, name, value, attrs = {})
-          node = ::Nokogiri::XML::Node.new(name, parent.document)
-          node << ::Nokogiri::XML::Text.new(value.to_s, parent.document) unless value.nil?
-          attrs.each {|attr_name, attr_val| node[attr_name] = attr_val }
+          value_str = value.to_s unless value.nil?
+          node = ::LibXML::XML::Node.new(name, value_str)
+          attrs.each do |attr_name, attr_val|
+            node[attr_name] = attr_val
+          end
           parent << node
           node
         end
 
         def self.add_xml(parent, xml)
-          parent << xml.root
+          parent << xml.root.copy(true)
         end
 
         def self.output(doc)

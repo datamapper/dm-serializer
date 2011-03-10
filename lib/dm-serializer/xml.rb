@@ -1,6 +1,6 @@
 module DataMapper
   module Serialize
-    module XMLSerializers
+    module XML
       # The supported XML Serializers
       SERIALIZERS = {
         :libxml => 'LibXML',
@@ -12,7 +12,7 @@ module DataMapper
       # The current XML Serializer.
       #
       # @return [Module]
-      #   The module within {DataMapper::Serialize::XMLSerializers}.
+      #   The module within {DataMapper::Serialize::XML}.
       #
       # @since 1.1.0
       #
@@ -28,7 +28,7 @@ module DataMapper
       #   `:nokogiri` or `:rexml`.
       #
       # @return [Module]
-      #   The module within {DataMapper::Serialize::XMLSerializers}.
+      #   The module within {DataMapper::Serialize::XML}.
       #
       # @since 1.1.0
       #
@@ -39,7 +39,7 @@ module DataMapper
           raise(ArgumentError,"unsupported XML Serializer #{name}")
         end
 
-        require "dm-serializer/xml_serializers/#{name}"
+        require "dm-serializer/xml/#{name}"
         @serializer = const_get(serializer_const)
       end
 

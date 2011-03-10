@@ -2,7 +2,7 @@ require 'rexml/document'
 
 module DataMapper
   module Serialize
-    module XMLSerializers
+    module XML
       module REXML
         def self.new_document
           ::REXML::Document.new

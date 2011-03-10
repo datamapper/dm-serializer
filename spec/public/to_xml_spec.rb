@@ -3,7 +3,7 @@ require 'rexml/document'
 
 [:rexml, :libxml, :nokogiri].each do |lib|
   begin
-    DataMapper::Serialize::XMLSerializers.serializer = lib
+    DataMapper::Serialize::XML.serializer = lib
   rescue LoadError => e
     warn "[WARNING] #{e.message}"
     warn "[WARNING] Not running #to_xml specs for #{lib}"
