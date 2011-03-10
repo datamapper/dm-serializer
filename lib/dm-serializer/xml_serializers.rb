@@ -43,7 +43,7 @@ module DataMapper
         @serializer = const_get(serializer_const)
       end
 
-      [:libxml, :nokogiri, :rexml].each do |name|
+      [:nokogiri, :libxml, :rexml].each do |name|
         # attempt to load the first available XML Serializer
         begin
           self.serializer = name
