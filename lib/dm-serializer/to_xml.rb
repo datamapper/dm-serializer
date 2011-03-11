@@ -36,7 +36,7 @@ module DataMapper
       properties_to_serialize(opts).each do |property|
         value = __send__(property.name)
         attrs = {}
-        
+
         unless property.primitive == String
           attrs['type'] = property.primitive.to_s.downcase
         end

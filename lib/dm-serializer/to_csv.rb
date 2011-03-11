@@ -21,7 +21,7 @@ module DataMapper
       options = args.first || {}
       options = options.to_h if options.respond_to?(:to_h)
       options[:writer] = '' unless options.has_key? :writer
-      
+
       CSV.generate(options[:writer]) do |csv|
         row = properties_to_serialize(options).map do |property|
           __send__(property.name).to_s
