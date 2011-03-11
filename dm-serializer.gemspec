@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Guy van den Berg"]
-  s.date = %q{2011-03-01}
+  s.date = %q{2011-03-10}
   s.description = %q{DataMapper plugin for serializing Resources and Collections}
   s.email = %q{vandenberg.guy [a] gmail [d] com}
   s.extra_rdoc_files = [
@@ -33,10 +33,10 @@ Gem::Specification.new do |s|
     "lib/dm-serializer/to_json.rb",
     "lib/dm-serializer/to_xml.rb",
     "lib/dm-serializer/to_yaml.rb",
-    "lib/dm-serializer/xml_serializers.rb",
-    "lib/dm-serializer/xml_serializers/libxml.rb",
-    "lib/dm-serializer/xml_serializers/nokogiri.rb",
-    "lib/dm-serializer/xml_serializers/rexml.rb",
+    "lib/dm-serializer/xml.rb",
+    "lib/dm-serializer/xml/libxml.rb",
+    "lib/dm-serializer/xml/nokogiri.rb",
+    "lib/dm-serializer/xml/rexml.rb",
     "spec/fixtures/cow.rb",
     "spec/fixtures/planet.rb",
     "spec/fixtures/quan_tum_cat.rb",
@@ -57,7 +57,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/datamapper/dm-serializer}
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{datamapper}
-  s.rubygems_version = %q{1.5.2}
+  s.rubygems_version = %q{1.6.2}
   s.summary = %q{DataMapper plugin for serializing Resources and Collections}
   s.test_files = [
     "spec/fixtures/cow.rb",
