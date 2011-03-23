@@ -13,8 +13,8 @@ describe DataMapper::Serializer, '#to_json' do
     keys = %w[ id composite name breed ]
 
     resources = [
-      keys.zip([  1,  2, 'Betsy', 'Jersey'   ]).to_hash,
-      keys.zip([ 10, 20, 'Berta', 'Guernsey' ]).to_hash,
+      Hash[ keys.zip([  1,  2, 'Betsy', 'Jersey'   ]) ],
+      Hash[ keys.zip([ 10, 20, 'Berta', 'Guernsey' ]) ],
     ]
 
     @collection = DataMapper::Collection.new(query, query.model.load(resources, query))

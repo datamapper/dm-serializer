@@ -31,8 +31,8 @@ share_examples_for 'A serialization method that also serializes core classes' do
     keys = %w[ id composite name breed ]
 
     resources = [
-      keys.zip([  1,  2, 'Betsy', 'Jersey'   ]).to_hash,
-      keys.zip([ 89, 34, 'Berta', 'Guernsey' ]).to_hash,
+      Hash[ keys.zip([  1,  2, 'Betsy', 'Jersey'   ]) ],
+      Hash[ keys.zip([ 89, 34, 'Berta', 'Guernsey' ]) ],
     ]
 
     collection = DataMapper::Collection.new(query, query.model.load(resources, query))
@@ -183,8 +183,8 @@ share_examples_for 'A serialization method' do
       keys = %w[ id composite name breed ]
 
       resources = [
-        keys.zip([  1,  2, 'Betsy', 'Jersey'   ]).to_hash,
-        keys.zip([ 10, 20, 'Berta', 'Guernsey' ]).to_hash,
+        Hash[ keys.zip([  1,  2, 'Betsy', 'Jersey'   ]) ],
+        Hash[ keys.zip([ 10, 20, 'Berta', 'Guernsey' ]) ],
       ]
 
       collection = DataMapper::Collection.new(query, query.model.load(resources, query))

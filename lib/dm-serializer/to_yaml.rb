@@ -39,7 +39,7 @@ module DataMapper
     module ValidationErrors
       module ToYaml
         def to_yaml(*args)
-          DataMapper::Ext::Array.to_hash(errors).to_yaml(*args)
+          Hash[ errors ].to_yaml(*args)
         end
       end
     end

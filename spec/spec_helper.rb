@@ -7,12 +7,6 @@ require 'dm-migrations'
 
 require File.expand_path('spec/lib/serialization_method_shared_spec')
 
-class Array
-  def to_hash
-    DataMapper::Ext::Array.to_hash(self)
-  end
-end
-
 # require fixture resources
 SPEC_ROOT = Pathname(__FILE__).dirname.expand_path
 Pathname.glob((SPEC_ROOT + 'fixtures/**/*.rb').to_s).each { |file| require file }
