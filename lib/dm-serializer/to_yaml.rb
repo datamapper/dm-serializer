@@ -2,6 +2,8 @@ require 'dm-serializer/common'
 
 module DataMapper
   module Serializer
+    TAG_NAME = "ruby/DataMapper,#{DataMapper::VERSION}".freeze
+
     # Serialize a Resource to YAML
     #
     # @return [YAML]
@@ -16,7 +18,7 @@ module DataMapper
       end
 
       YAML.quick_emit(object_id,emitter) do |out|
-        out.map("!ruby/DataMapper:#{model.name}", to_yaml_style) do |map|
+        out.map(to_yaml_type, to_yaml_style) do |map|
           properties_to_serialize(opts).each do |property|
             value = __send__(property.name.to_sym)
             map.add(property.name, value.is_a?(Class) ? value.to_s : value)
@@ -34,6 +36,15 @@ module DataMapper
           end
         end
       end
+    end
+
+    # Return the YAML type to use for the output
+    #
+    # @return [String]
+    #
+    # @api private
+    def to_yaml_type
+      "!#{TAG_NAME}:#{model.name}"
     end
 
     module ValidationErrors
