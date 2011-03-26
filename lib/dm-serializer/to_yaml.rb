@@ -4,6 +4,23 @@ module DataMapper
   module Serializer
     TAG_NAME = "ruby/DataMapper,#{DataMapper::VERSION}".freeze
 
+    # Include a callback to register the YAML output
+    #
+    # @param [DataMapper::Model] descendant
+    #
+    # @return [undefined]
+    #
+    # @api private
+    def self.included(descendant)
+      YAML.add_domain_type(TAG_NAME, descendant.name) do |_tag, values|
+        # XXX: should I be be doing more here? the documentation for all
+        # this is so bad I could not make out how to properly serialize
+        # and deserialize in a way that work with with JRuby 1.6 in --1.9
+        # mode and other versions of ruby.
+        values
+      end
+    end
+
     # Serialize a Resource to YAML
     #
     # @return [YAML]
