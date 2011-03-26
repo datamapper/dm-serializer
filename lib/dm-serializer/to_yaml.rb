@@ -16,7 +16,7 @@ module DataMapper
       end
 
       YAML.quick_emit(object_id,emitter) do |out|
-        out.map(nil,to_yaml_style) do |map|
+        out.map("!ruby/DataMapper:#{model.name}", to_yaml_style) do |map|
           properties_to_serialize(opts).each do |property|
             value = __send__(property.name.to_sym)
             map.add(property.name, value.is_a?(Class) ? value.to_s : value)
