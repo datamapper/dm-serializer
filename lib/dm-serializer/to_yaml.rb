@@ -25,31 +25,21 @@ module DataMapper
     #
     # @return [YAML]
     #   A YAML representation of this Resource.
-    def to_yaml(opts_or_emitter = {})
-      unless opts_or_emitter.is_a?(Hash)
-        emitter = opts_or_emitter
-        opts = {}
-      else
-        emitter = {}
-        opts = opts_or_emitter
-      end
+    def to_yaml(options = {})
+      emitter = options
+      options = {} unless options.kind_of?(Hash)
 
-      YAML.quick_emit(object_id,emitter) do |out|
+      YAML.quick_emit(object_id, emitter) do |out|
         out.map(to_yaml_type, to_yaml_style) do |map|
-          properties_to_serialize(opts).each do |property|
-            value = __send__(property.name.to_sym)
-            map.add(property.name, value.is_a?(Class) ? value.to_s : value)
-          end
+          methods = []
 
-          # add methods
-          Array(opts[:methods]).each do |meth|
-            if respond_to?(meth)
-              map.add(meth.to_sym, __send__(meth))
-            end
-          end
+          methods.concat properties_to_serialize(options).map { |property| property.name }
+          methods.concat Array(options[:methods])
 
-          if (additions = instance_variable_get("@yaml_addes"))
-            additions.each { |k,v| map.add(k.to_s,v) }
+          methods.each do |method|
+            next unless respond_to?(method)
+            value = __send__(method)
+            map.add(method, value.is_a?(Class) ? value.to_s : value)
           end
         end
       end
