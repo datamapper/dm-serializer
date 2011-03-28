@@ -37,7 +37,6 @@ module DataMapper
           methods.concat Array(options[:methods])
 
           methods.each do |method|
-            next unless respond_to?(method)
             value = __send__(method)
             map.add(method, value.is_a?(Class) ? value.to_s : value)
           end
