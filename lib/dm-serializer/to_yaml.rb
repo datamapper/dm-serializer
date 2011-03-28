@@ -65,13 +65,8 @@ module DataMapper
   end
 
   class Collection
-    def to_yaml(opts_or_emitter = {})
-      unless opts_or_emitter.is_a?(Hash)
-        to_a.to_yaml(opts_or_emitter)
-      else
-        # FIXME: Don't double handle the YAML (remove the YAML.load)
-        to_a.collect { |x| YAML.load(x.to_yaml(opts_or_emitter)) }.to_yaml
-      end
+    def to_yaml(*args)
+      to_a.to_yaml(*args)
     end
   end
 
