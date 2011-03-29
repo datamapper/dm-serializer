@@ -159,4 +159,5 @@ module DataMapper
       end # class ValidationErrors
     end # module Validations
   end
-end
+
+end # module DataMapper
