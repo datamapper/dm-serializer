@@ -28,14 +28,12 @@ module DataMapper
     #
     # @api public
     def to_yaml(options = {})
-      return super if YAML.const_defined?(:ENGINE) && !YAML::ENGINE.syck?
-
       YAML.quick_emit(object_id, options) do |out|
         out.map(to_yaml_type, to_yaml_style) do |map|
           encode_with(map, options.kind_of?(Hash) ? options : {})
         end
       end
-    end
+    end unless YAML.const_defined?(:ENGINE) && !YAML::ENGINE.syck?
 
     # A callback to encode the resource in the YAML stream
     #
