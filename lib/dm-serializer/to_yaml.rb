@@ -23,26 +23,51 @@ module DataMapper
 
     # Serialize a Resource to YAML
     #
-    # @return [YAML]
-    #   A YAML representation of this Resource.
+    # @example
+    #   yaml = resource.to_yaml  # => a valid YAML string
+    #
+    # @param [Hash] options
+    #
+    # @return [String]
+    #
+    # @api public
     def to_yaml(options = {})
-      emitter = options
-      options = {} unless options.kind_of?(Hash)
+      return super if YAML.const_defined?(:ENGINE) && !YAML::ENGINE.syck?
 
-      YAML.quick_emit(object_id, emitter) do |out|
+      YAML.quick_emit(object_id, options) do |out|
         out.map(to_yaml_type, to_yaml_style) do |map|
-          methods = []
-
-          methods.concat properties_to_serialize(options).map { |property| property.name }
-          methods.concat Array(options[:methods])
-
-          methods.each do |method|
-            value = __send__(method)
-            map.add(method, value.is_a?(Class) ? value.to_s : value)
-          end
+          encode_with(map, options.kind_of?(Hash) ? options : {})
         end
       end
     end
+
+    # A callback to encode the resource in the YAML stream
+    #
+    # @param [#add] coder
+    #   handles adding the values to the output
+    #
+    # @param [Hash] options
+    #   optional Hash configuring the output
+    #
+    # @return [undefined]
+    #
+    # @api public
+    def encode_with(coder, options = {})
+      coder.tag   = to_yaml_type  if coder.respond_to?(:tag)
+      coder.style = to_yaml_style if coder.respond_to?(:style)
+
+      methods = []
+
+      methods.concat properties_to_serialize(options).map { |property| property.name }
+      methods.concat Array(options[:methods])
+
+      methods.each do |method|
+        value = __send__(method)
+        coder.add(method, value.is_a?(Class) ? value.to_s : value)
+      end
+    end
+
+  private
 
     # Return the YAML type to use for the output
     #
@@ -53,29 +78,89 @@ module DataMapper
       "!#{TAG_NAME}:#{model.name}"
     end
 
+    # Return the YAML style to use for the output
+    #
+    # @return [Integer]
+    #
+    # @api private
+    def to_yaml_style
+      Psych::Nodes::Mapping::ANY
+    end if YAML.const_defined?(:ENGINE) && YAML::ENGINE.yamler == 'psych'
+
     module ValidationErrors
       module ToYaml
-        def to_yaml(*args)
-          Hash[ errors ].to_yaml(*args)
-        end
-      end
-    end
 
-  end
+        # Serialize the errors to YAML
+        #
+        # @example
+        #   yaml = errors.to_yaml  # => a valid YAML string
+        #
+        # @param [Hash] options
+        #
+        # @return [String]
+        #
+        # @api public
+        def to_yaml(*args)
+          Hash[errors].to_yaml(*args)
+        end
+
+        # A callback to encode the errors in the YAML stream
+        #
+        # @param [#add] coder
+        #   handles adding the values to the output
+        #
+        # @return [undefined]
+        #
+        # @api public
+        def encode_with(coder)
+          coder.map = Hash[errors]
+        end
+
+      end # module ToYaml
+    end # module ValidationErrors
+
+    module Collection
+      module ToYaml
+
+        # Serialize the collection to YAML
+        #
+        # @example
+        #   yaml = collection.to_yaml  # => a valid YAML string
+        #
+        # @param [Hash] options
+        #
+        # @return [String]
+        #
+        # @api public
+        def to_yaml(*args)
+          to_a.to_yaml(*args)
+        end
+
+        # A callback to encode the collection in the YAML stream
+        #
+        # @param [#add] coder
+        #   handles adding the values to the output
+        #
+        # @return [undefined]
+        #
+        # @api public
+        def encode_with(coder)
+          coder.seq = to_a
+        end
+
+      end # module ToYaml
+    end # module Collection
+  end # module Serializer
 
   class Collection
-    def to_yaml(*args)
-      to_a.to_yaml(*args)
-    end
-  end
+    include Serializer::Collection::ToYaml
+  end # class Collection
 
-  if Serializer.dm_validations_loaded?
-
+  if const_defined?(:Validations)
     module Validations
       class ValidationErrors
         include DataMapper::Serializer::ValidationErrors::ToYaml
-      end
-    end
-
+      end # class ValidationErrors
+    end # module Validations
   end
 end

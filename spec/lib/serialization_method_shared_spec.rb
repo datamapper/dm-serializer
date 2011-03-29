@@ -93,73 +93,87 @@ share_examples_for 'A serialization method' do
     end
 
     it "should only includes properties given to :only option" do
-      planet = Planet.new(
-        :name     => "Mars",
-        :aphelion => 249_209_300.4
-      )
+      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+        planet = Planet.new(
+          :name     => "Mars",
+          :aphelion => 249_209_300.4
+        )
 
-      result = @harness.test(planet, :only => [:name])
-      result.values_at("name", "aphelion").should == ["Mars", nil]
+        result = @harness.test(planet, :only => [:name])
+        result.values_at("name", "aphelion").should == ["Mars", nil]
+      end
     end
 
     it "should serialize values returned by an array of methods given to :methods option" do
-      planet = Planet.new(
-        :name     => "Mars",
-        :aphelion => 249_209_300.4
-      )
+      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+        planet = Planet.new(
+          :name     => "Mars",
+          :aphelion => 249_209_300.4
+        )
 
-      result = @harness.test(planet, :methods => [:category, :has_known_form_of_life?])
-      # XML currently can't serialize ? at the end of method names
-      boolean_method_name = @harness.method_name == :to_xml ? "has_known_form_of_life" : "has_known_form_of_life?"
-      result.values_at("category", boolean_method_name).should == ["terrestrial", false]
+        result = @harness.test(planet, :methods => [:category, :has_known_form_of_life?])
+        # XML currently can't serialize ? at the end of method names
+        boolean_method_name = @harness.method_name == :to_xml ? "has_known_form_of_life" : "has_known_form_of_life?"
+        result.values_at("category", boolean_method_name).should == ["terrestrial", false]
+      end
     end
 
     it "should serialize values returned by a single method given to :methods option" do
-      planet = Planet.new(
-        :name     => "Mars",
-        :aphelion => 249_209_300.4
-      )
+      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+        planet = Planet.new(
+          :name     => "Mars",
+          :aphelion => 249_209_300.4
+        )
 
-      result = @harness.test(planet, :methods => :category)
-      result.values_at("category").should == ["terrestrial"]
+        result = @harness.test(planet, :methods => :category)
+        result.values_at("category").should == ["terrestrial"]
+      end
     end
 
     it "should only include properties given to :only option" do
-      planet = Planet.new(
-        :name     => "Mars",
-        :aphelion => 249_209_300.4
-      )
+      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+        planet = Planet.new(
+          :name     => "Mars",
+          :aphelion => 249_209_300.4
+        )
 
-      result = @harness.test(planet, :only => [:name])
-      result.values_at("name", "aphelion").should == ["Mars", nil]
+        result = @harness.test(planet, :only => [:name])
+        result.values_at("name", "aphelion").should == ["Mars", nil]
+      end
     end
 
     it "should exclude properties given to :exclude option" do
-      planet = Planet.new(
-        :name     => "Mars",
-        :aphelion => 249_209_300.4
-      )
+      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+        planet = Planet.new(
+          :name     => "Mars",
+          :aphelion => 249_209_300.4
+        )
 
-      result = @harness.test(planet, :exclude => [:aphelion])
-      result.values_at("name", "aphelion").should == ["Mars", nil]
+        result = @harness.test(planet, :exclude => [:aphelion])
+        result.values_at("name", "aphelion").should == ["Mars", nil]
+      end
     end
 
     it "should give higher precendence to :only option over :exclude" do
-      planet = Planet.new(
-        :name     => "Mars",
-        :aphelion => 249_209_300.4
-      )
+      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+        planet = Planet.new(
+          :name     => "Mars",
+          :aphelion => 249_209_300.4
+        )
 
-      result = @harness.test(planet, :only => [:name], :exclude => [:name])
-      result.values_at("name", "aphelion").should == ["Mars", nil]
+        result = @harness.test(planet, :only => [:name], :exclude => [:name])
+        result.values_at("name", "aphelion").should == ["Mars", nil]
+      end
     end
 
     it 'should support child associations included via the :methods parameter' do
-      solar_system = SolarSystem.create(:name => "one")
-      planet = Planet.new(:name => "earth")
-      planet.solar_system = solar_system
-      result = @harness.test(planet, :methods => [:solar_system])
-      result['solar_system'].values_at('name', 'id').should == ['one', 1]
+      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+        solar_system = SolarSystem.create(:name => "one")
+        planet = Planet.new(:name => "earth")
+        planet.solar_system = solar_system
+        result = @harness.test(planet, :methods => [:solar_system])
+        result['solar_system'].values_at('name', 'id').should == ['one', 1]
+      end
     end
   end
 

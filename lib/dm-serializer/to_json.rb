@@ -93,14 +93,11 @@ module DataMapper
     end
   end
 
-  if Serializer.dm_validations_loaded?
-
+  if const_defined?(:Validations)
     module Validations
       class ValidationErrors
         include DataMapper::Serializer::ValidationErrors::ToJson
       end
     end
-
   end
-
 end

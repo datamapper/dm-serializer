@@ -1,5 +1,6 @@
 require 'dm-core/spec/setup'
 require 'dm-core/spec/lib/adapter_helpers'
+require 'dm-core/spec/lib/pending_helpers'
 
 require 'dm-validations' # FIXME: must be required before dm-serializer
 require 'dm-serializer'
@@ -21,4 +22,5 @@ DataMapper::Spec.setup
 
 Spec::Runner.configure do |config|
   config.extend(DataMapper::Spec::Adapters::Helpers)
+  config.include(DataMapper::Spec::PendingHelpers)
 end
