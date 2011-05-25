@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Guy van den Berg"]
-  s.date = %q{2011-05-23}
+  s.date = %q{2011-05-25}
   s.description = %q{DataMapper plugin for serializing Resources and Collections}
   s.email = %q{vandenberg.guy [a] gmail [d] com}
   s.extra_rdoc_files = [
@@ -55,7 +55,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/datamapper/dm-serializer}
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{datamapper}
-  s.rubygems_version = %q{1.6.2}
+  s.rubygems_version = %q{1.7.2}
   s.summary = %q{DataMapper plugin for serializing Resources and Collections}
   s.test_files = [
     "spec/fixtures/cow.rb",
@@ -77,7 +77,9 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<dm-core>, ["~> 1.1.0"])
       s.add_runtime_dependency(%q<fastercsv>, ["~> 1.5.4"])
+      s.add_runtime_dependency(%q<multi_json>, ["~> 1.0.3"])
       s.add_runtime_dependency(%q<json>, ["~> 1.5.1"])
+      s.add_runtime_dependency(%q<json_pure>, ["~> 1.5.1"])
       s.add_development_dependency(%q<dm-validations>, ["~> 1.1.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
@@ -85,7 +87,9 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<dm-core>, ["~> 1.1.0"])
       s.add_dependency(%q<fastercsv>, ["~> 1.5.4"])
+      s.add_dependency(%q<multi_json>, ["~> 1.0.3"])
       s.add_dependency(%q<json>, ["~> 1.5.1"])
+      s.add_dependency(%q<json_pure>, ["~> 1.5.1"])
       s.add_dependency(%q<dm-validations>, ["~> 1.1.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
@@ -94,7 +98,9 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<dm-core>, ["~> 1.1.0"])
     s.add_dependency(%q<fastercsv>, ["~> 1.5.4"])
+    s.add_dependency(%q<multi_json>, ["~> 1.0.3"])
     s.add_dependency(%q<json>, ["~> 1.5.1"])
+    s.add_dependency(%q<json_pure>, ["~> 1.5.1"])
     s.add_dependency(%q<dm-validations>, ["~> 1.1.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
