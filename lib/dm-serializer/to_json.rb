@@ -1,6 +1,6 @@
 require 'dm-serializer/common'
 
-require 'json'
+require 'multi_json'
 
 module DataMapper
   module Serializer
@@ -60,7 +60,7 @@ module DataMapper
 
       # default to making JSON
       if options.fetch(:to_json, true)
-        result.to_json
+        MultiJson.encode(result)
       else
         result
       end
@@ -69,7 +69,7 @@ module DataMapper
     module ValidationErrors
       module ToJson
         def to_json(*args)
-          Hash[ errors ].to_json
+          MultiJson.encode(Hash[ errors ])
         end
       end
     end
