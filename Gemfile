@@ -13,7 +13,7 @@ gem 'dm-core',    DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}"
 gem 'fastercsv',  '~> 1.5.4'
 
 gem 'multi_json', '~> 1.0.3'
-gem 'json',       '~> 1.5.1', :platforms => [ :ruby_18 ]
+gem 'json',       '~> 1.5.1', :platforms => [ :ruby_18, :jruby ]
 gem 'json_pure',  '~> 1.5.1', :platforms => [ :mswin ]
 
 group :development do
