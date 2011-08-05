@@ -283,8 +283,8 @@ share_examples_for 'A serialization method' do
     planet = Planet.create(:name => 'a')
     results = @harness.test(planet.errors)
     results.should == {
-      "name"            => planet.errors[:name],
-      "solar_system_id" => planet.errors[:solar_system_id]
+      "name"            => planet.errors[:name].map { |e| e.to_s },
+      "solar_system_id" => planet.errors[:solar_system_id].map { |e| e.to_s }
     }
   end
 end
