@@ -11,17 +11,16 @@ DM_DO_ADAPTERS = %w[ sqlite postgres mysql oracle sqlserver ]
 
 gem 'dm-core',    DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}"
 gem 'fastercsv',  '~> 1.5.4'
-
 gem 'multi_json', '~> 1.0.3'
-gem 'json',       '~> 1.5.1', :platforms => [ :ruby_18, :jruby ]
-gem 'json_pure',  '~> 1.5.1', :platforms => [ :mswin ]
+gem 'json',       '~> 1.5.4', :platforms => [ :ruby_18, :jruby ]
+gem 'json_pure',  '~> 1.5.4', :platforms => [ :mswin ]
 
 group :development do
 
   gem 'dm-validations', DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-validations#{REPO_POSTFIX}"
-  gem 'jeweler',        '~> 1.5.2'
-  gem 'rake',           '~> 0.8.7'
-  gem 'rspec',          '~> 1.3.1'
+  gem 'jeweler',        '~> 1.6.4'
+  gem 'rake',           '~> 0.9.2'
+  gem 'rspec',          '~> 1.3.2'
 
 end
 
@@ -35,9 +34,9 @@ end
 platforms :mri_18 do
   group :quality do
 
-    gem 'rcov',      '~> 0.9.9'
-    gem 'yard',      '~> 0.6'
-    gem 'yardstick', '~> 0.2'
+    gem 'rcov',      '~> 0.9.10'
+    gem 'yard',      '~> 0.7.2'
+    gem 'yardstick', '~> 0.4'
 
   end
 end
