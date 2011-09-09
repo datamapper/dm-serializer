@@ -56,8 +56,7 @@ module DataMapper
       methods.concat Array(options[:methods])
 
       methods.each do |method|
-        value = __send__(method)
-        coder.add(method.to_s, value.is_a?(Class) ? value.to_s : value)
+        coder.add(method.to_s, __send__(method))
       end
     end
 
