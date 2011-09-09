@@ -27,7 +27,7 @@ describe DataMapper::Serializer, '#to_yaml' do
       end
     end.new
 
-    @jruby_19 = RUBY_PLATFORM =~ /java/ && JRUBY_VERSION >= '1.6' && RUBY_VERSION >= '1.9.2'
+    @ruby_192 = RUBY_VERSION >= '1.9.2'
     @to_yaml  = true
   end
 

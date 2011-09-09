@@ -93,7 +93,7 @@ share_examples_for 'A serialization method' do
     end
 
     it "should only includes properties given to :only option" do
-      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+      pending_if 'Psych provides no way to pass in parameters', @ruby_192 && @to_yaml do
         planet = Planet.new(
           :name     => "Mars",
           :aphelion => 249_209_300.4
@@ -105,7 +105,7 @@ share_examples_for 'A serialization method' do
     end
 
     it "should serialize values returned by an array of methods given to :methods option" do
-      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+      pending_if 'Psych provides no way to pass in parameters', @ruby_192 && @to_yaml do
         planet = Planet.new(
           :name     => "Mars",
           :aphelion => 249_209_300.4
@@ -119,7 +119,7 @@ share_examples_for 'A serialization method' do
     end
 
     it "should serialize values returned by a single method given to :methods option" do
-      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+      pending_if 'Psych provides no way to pass in parameters', @ruby_192 && @to_yaml do
         planet = Planet.new(
           :name     => "Mars",
           :aphelion => 249_209_300.4
@@ -131,7 +131,7 @@ share_examples_for 'A serialization method' do
     end
 
     it "should only include properties given to :only option" do
-      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+      pending_if 'Psych provides no way to pass in parameters', @ruby_192 && @to_yaml do
         planet = Planet.new(
           :name     => "Mars",
           :aphelion => 249_209_300.4
@@ -143,7 +143,7 @@ share_examples_for 'A serialization method' do
     end
 
     it "should exclude properties given to :exclude option" do
-      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+      pending_if 'Psych provides no way to pass in parameters', @ruby_192 && @to_yaml do
         planet = Planet.new(
           :name     => "Mars",
           :aphelion => 249_209_300.4
@@ -155,7 +155,7 @@ share_examples_for 'A serialization method' do
     end
 
     it "should give higher precendence to :only option over :exclude" do
-      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+      pending_if 'Psych provides no way to pass in parameters', @ruby_192 && @to_yaml do
         planet = Planet.new(
           :name     => "Mars",
           :aphelion => 249_209_300.4
@@ -167,7 +167,7 @@ share_examples_for 'A serialization method' do
     end
 
     it 'should support child associations included via the :methods parameter' do
-      pending_if 'Psych provides no way to pass in parameters', @jruby_19 && @to_yaml do
+      pending_if 'Psych provides no way to pass in parameters', @ruby_192 && @to_yaml do
         solar_system = SolarSystem.create(:name => "one")
         planet = Planet.new(:name => "earth")
         planet.solar_system = solar_system
