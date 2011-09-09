@@ -57,7 +57,7 @@ module DataMapper
 
       methods.each do |method|
         value = __send__(method)
-        coder.add(method, value.is_a?(Class) ? value.to_s : value)
+        coder.add(method.to_s, value.is_a?(Class) ? value.to_s : value)
       end
     end
 
