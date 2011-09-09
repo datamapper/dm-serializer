@@ -47,8 +47,8 @@ module DataMapper
     #
     # @api public
     def encode_with(coder, options = {})
-      coder.tag   = to_yaml_type  if coder.respond_to?(:tag)
-      coder.style = to_yaml_style if coder.respond_to?(:style)
+      coder.tag   = to_yaml_type  if coder.respond_to?(:tag=)
+      coder.style = to_yaml_style if coder.respond_to?(:style=)
 
       methods = []
 
