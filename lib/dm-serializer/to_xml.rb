@@ -37,8 +37,10 @@ module DataMapper
         value = __send__(property.name)
         attrs = {}
 
-        unless property.primitive == String
-          attrs['type'] = property.primitive.to_s.downcase
+        dump_class = property.dump_class
+
+        unless dump_class == ::String
+          attrs['type'] = dump_class.to_s.downcase
         end
 
         xml.add_node(root, property.name.to_s, value, attrs)
