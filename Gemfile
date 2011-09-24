@@ -27,7 +27,7 @@ end
 group :testing do
 
   gem 'nokogiri',    '~> 1.4.4'
-  gem 'libxml-ruby', '~> 1.1.4', :platforms => [ :mri, :mswin ]
+  gem 'libxml-ruby', '~> 2.2.2', :platforms => [ :mri, :mswin ]
 
 end
 
