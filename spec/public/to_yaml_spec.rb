@@ -27,6 +27,18 @@ describe DataMapper::Serializer, '#to_yaml' do
       end
     end.new
 
+    [ Cow, Planet, SolarSystem ].each do |klass|
+      klass.class_eval do
+        def [](method)
+          send(method)
+        end
+
+        def values_at(*args)
+          args.map { |method| send(method) }
+        end
+      end
+    end
+
     @ruby_192 = RUBY_VERSION >= '1.9.2'
     @to_yaml  = true
   end

@@ -2,7 +2,6 @@ require 'dm-serializer/common'
 
 module DataMapper
   module Serializer
-    TAG_NAME = "ruby/DataMapper,#{DataMapper::VERSION}".freeze
 
     # Include a callback to register the YAML output
     #
@@ -12,9 +11,8 @@ module DataMapper
     #
     # @api private
     def self.included(descendant)
-      YAML.add_domain_type(TAG_NAME, descendant.name) do |_tag, values|
-        values
-      end
+      taguri = "tag:datamapper.org,2011:#{DataMapper::Inflector.underscore(descendant.name)}".freeze
+      descendant.yaml_as(taguri)
     end
 
     # Serialize a Resource to YAML
@@ -29,7 +27,7 @@ module DataMapper
     # @api public
     def to_yaml(options = {})
       YAML.quick_emit(object_id, options) do |out|
-        out.map(to_yaml_type, to_yaml_style) do |map|
+        out.map(taguri, to_yaml_style) do |map|
           encode_with(map, options.kind_of?(Hash) ? options : {})
         end
       end
@@ -47,38 +45,11 @@ module DataMapper
     #
     # @api public
     def encode_with(coder, options = {})
-      coder.tag   = to_yaml_type  if coder.respond_to?(:tag=)
-      coder.style = to_yaml_style if coder.respond_to?(:style=)
-
       methods = []
-
-      methods.concat properties_to_serialize(options).map { |property| property.name }
-      methods.concat Array(options[:methods])
-
-      methods.each do |method|
-        coder.add(method.to_s, __send__(method))
-      end
+      methods |= properties_to_serialize(options).map { |property| property.name }
+      methods |= Array(options[:methods])
+      methods.each { |method| coder.add(method.to_s, __send__(method)) }
     end
-
-  private
-
-    # Return the YAML type to use for the output
-    #
-    # @return [String]
-    #
-    # @api private
-    def to_yaml_type
-      "!#{TAG_NAME}:#{model.name}"
-    end
-
-    # Return the YAML style to use for the output
-    #
-    # @return [Integer]
-    #
-    # @api private
-    def to_yaml_style
-      Psych::Nodes::Mapping::ANY
-    end if YAML.const_defined?(:ENGINE) && YAML::ENGINE.yamler == 'psych'
 
     module ValidationErrors
       module ToYaml

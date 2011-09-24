@@ -105,29 +105,25 @@ share_examples_for 'A serialization method' do
     end
 
     it "should serialize values returned by an array of methods given to :methods option" do
-      pending_if 'Psych provides no way to pass in parameters', @ruby_192 && @to_yaml do
-        planet = Planet.new(
-          :name     => "Mars",
-          :aphelion => 249_209_300.4
-        )
+      planet = Planet.new(
+        :name     => "Mars",
+        :aphelion => 249_209_300.4
+      )
 
-        result = @harness.test(planet, :methods => [:category, :has_known_form_of_life?])
-        # XML currently can't serialize ? at the end of method names
-        boolean_method_name = @harness.method_name == :to_xml ? "has_known_form_of_life" : "has_known_form_of_life?"
-        result.values_at("category", boolean_method_name).should == ["terrestrial", false]
-      end
+      result = @harness.test(planet, :methods => [:category, :has_known_form_of_life?])
+      # XML currently can't serialize ? at the end of method names
+      boolean_method_name = @harness.method_name == :to_xml ? "has_known_form_of_life" : "has_known_form_of_life?"
+      result.values_at("category", boolean_method_name).should == ["terrestrial", false]
     end
 
     it "should serialize values returned by a single method given to :methods option" do
-      pending_if 'Psych provides no way to pass in parameters', @ruby_192 && @to_yaml do
-        planet = Planet.new(
-          :name     => "Mars",
-          :aphelion => 249_209_300.4
-        )
+      planet = Planet.new(
+        :name     => "Mars",
+        :aphelion => 249_209_300.4
+      )
 
-        result = @harness.test(planet, :methods => :category)
-        result.values_at("category").should == ["terrestrial"]
-      end
+      result = @harness.test(planet, :methods => :category)
+      result.values_at("category").should == ["terrestrial"]
     end
 
     it "should only include properties given to :only option" do
@@ -167,13 +163,11 @@ share_examples_for 'A serialization method' do
     end
 
     it 'should support child associations included via the :methods parameter' do
-      pending_if 'Psych provides no way to pass in parameters', @ruby_192 && @to_yaml do
-        solar_system = SolarSystem.create(:name => "one")
-        planet = Planet.new(:name => "earth")
-        planet.solar_system = solar_system
-        result = @harness.test(planet, :methods => [:solar_system])
-        result['solar_system'].values_at('name', 'id').should == ['one', 1]
-      end
+      solar_system = SolarSystem.create(:name => "one")
+      planet = Planet.new(:name => "earth")
+      planet.solar_system = solar_system
+      result = @harness.test(planet, :methods => [:solar_system])
+      result['solar_system'].values_at('name', 'id').should == ['one', 1]
     end
   end
 
@@ -237,7 +231,7 @@ share_examples_for 'A serialization method' do
       baby.save
 
       result = @harness.test(baby.mother_cow)
-      result.should be_kind_of(Hash)
+      result.should respond_to(:values_at)
       result.values_at(*%w{id composite name breed}).should == [1, 322, "Harry", "Angus"]
     end
 
@@ -273,7 +267,14 @@ share_examples_for 'A serialization method' do
         gerry = QuanTum::Cat.create(:name => "gerry")
         george = DataMapper.repository(alternate_repo){ QuanTum::Cat.create(:name => "george", :is_dead => false) }
         @harness.test(gerry )['is_dead'].should be(nil)
-        @harness.test(george)['is_dead'].should be(false)
+
+        # YAML cannot instantiate the object in the correct repository
+        # automatically, not without adding the repository to the output and
+        # then modifying the yaml_new constructor to use the repository if one
+        # is specified.
+        unless @harness.method_name == :to_yaml
+          @harness.test(george)['is_dead'].should be(false)
+        end
       end
     end
 
