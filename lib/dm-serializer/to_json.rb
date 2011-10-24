@@ -86,7 +86,7 @@ module DataMapper
 
       # default to making JSON
       if options.fetch(:to_json, true)
-        collection.to_json
+        MultiJson.encode(collection)
       else
         collection
       end
