@@ -1,6 +1,8 @@
 require 'pathname'
 
-source 'http://rubygems.org'
+source :rubygems
+
+gemspec
 
 SOURCE         = ENV.fetch('SOURCE', :git).to_sym
 REPO_POSTFIX   = SOURCE == :path ? ''                                : '.git'
@@ -20,22 +22,14 @@ gem 'json',       '~> 1.5.4', :platforms => [ :ruby_18, :jruby ]
 gem 'json_pure',  '~> 1.5.4', :platforms => [ :mswin ]
 
 group :development do
-
   gem 'dm-validations', DM_VERSION,
     SOURCE  => "#{DATAMAPPER}/dm-validations#{REPO_POSTFIX}",
     :branch => CURRENT_BRANCH
-
-  gem 'jeweler',        '~> 1.6.4'
-  gem 'rake',           '~> 0.9.2'
-  gem 'rspec',          '~> 1.3.2'
-
 end
 
 group :testing do
-
   gem 'nokogiri',    '~> 1.4.4'
   gem 'libxml-ruby', '~> 2.2.2', :platforms => [ :mri, :mswin ]
-
 end
 
 platforms :mri_18 do
