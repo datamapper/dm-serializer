@@ -60,7 +60,7 @@ module DataMapper
 
       # default to making JSON
       if options.fetch(:to_json, true)
-        MultiJson.encode(result)
+        MultiJson.dump(result)
       else
         result
       end
@@ -69,7 +69,7 @@ module DataMapper
     module ValidationErrors
       module ToJson
         def to_json(*args)
-          MultiJson.encode(Hash[ errors ])
+          MultiJson.dump(Hash[ errors ])
         end
       end
     end
@@ -86,7 +86,7 @@ module DataMapper
 
       # default to making JSON
       if options.fetch(:to_json, true)
-        MultiJson.encode(collection)
+        MultiJson.dump(collection)
       else
         collection
       end
