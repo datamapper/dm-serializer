@@ -94,7 +94,7 @@ module DataMapper
         #
         # @api public
         def to_yaml(*args)
-          Hash[errors].to_yaml(*args)
+          Hash[violations].to_yaml(*args)
         end
 
         # A callback to encode the errors in the YAML stream

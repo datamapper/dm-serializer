@@ -69,7 +69,7 @@ module DataMapper
     module ValidationErrors
       module ToJson
         def to_json(*args)
-          MultiJson.dump(Hash[ errors ])
+          MultiJson.dump(Hash[ violations ])
         end
       end
     end

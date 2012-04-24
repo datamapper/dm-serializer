@@ -37,7 +37,7 @@ module DataMapper
           options[:writer] = '' unless options.has_key? :writer
 
           CSV.generate(options[:writer]) do |csv|
-            errors.each do |key, value|
+            violations.each do |key, value|
               value.each do |error|
                 row = []
                 row << key.to_s

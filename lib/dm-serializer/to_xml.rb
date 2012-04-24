@@ -75,7 +75,7 @@ module DataMapper
           doc = xml.new_document
           root = xml.root_node(doc, "errors", {'type' => 'hash'})
 
-          errors.each do |key, value|
+          violations.each do |key, value|
             property = xml.add_node(root, key.to_s, nil, {'type' => 'array'})
             property.attributes["type"] = 'array'
 
