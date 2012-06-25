@@ -10,14 +10,14 @@ DO_VERSION     = '~> 0.10.6'
 DM_DO_ADAPTERS = %w[ sqlite postgres mysql oracle sqlserver ]
 CURRENT_BRANCH = ENV.fetch('GIT_BRANCH', 'master')
 
+gem 'fastercsv',  '~> 1.5'
+gem 'multi_json', '~> 1.0'
+gem 'json',       '~> 1.6', :platforms => [ :ruby_18, :jruby ]
+gem 'json_pure',  '~> 1.6', :platforms => [ :mswin ]
+
 gem 'dm-core', DM_VERSION,
   SOURCE  => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}",
   :branch => CURRENT_BRANCH
-
-gem 'fastercsv',  '~> 1.5.4'
-gem 'multi_json', '~> 1.0.3'
-gem 'json',       '~> 1.6.1', :platforms => [ :ruby_18, :jruby ]
-gem 'json_pure',  '~> 1.6.1', :platforms => [ :mswin ]
 
 group :development do
 
@@ -25,15 +25,15 @@ group :development do
     SOURCE  => "#{DATAMAPPER}/dm-validations#{REPO_POSTFIX}",
     :branch => CURRENT_BRANCH
 
-  gem 'rake',           '~> 0.9.2'
-  gem 'rspec',          '~> 1.3.2'
+  gem 'rake',           '~> 0.9'
+  gem 'rspec',          '~> 1.3'
 
 end
 
 group :testing do
 
-  gem 'nokogiri',    '~> 1.4.4'
-  gem 'libxml-ruby', '~> 2.3.0', :platforms => [ :mri, :mswin ]
+  gem 'nokogiri',    '~> 1.4'
+  gem 'libxml-ruby', '~> 2.0', :platforms => [ :mri, :mswin ]
 
 end
 
