@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
 
   gem.name          = "dm-serializer"
   gem.require_paths = [ "lib" ]
-  gem.version       = '1.2.1'
+  gem.version       = '1.2.2'
 
   gem.add_runtime_dependency('fastercsv',  '~> 1.5')
   gem.add_runtime_dependency('multi_json', '~> 1.0')
