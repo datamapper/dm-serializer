@@ -3,7 +3,7 @@ before_install:
   - gem install bundler --pre
 branches:
   only:
-    - master
+    - /^release-.*$/
 script: "bundle exec rake spec"
 matrix:
   allow_failures:
