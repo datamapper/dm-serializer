@@ -54,6 +54,12 @@ describe DataMapper::Serializer, '#to_json' do
   it "supports :include option for one level depth"
   it "supports :include option for more than one level depth"
   it "has :repository option to override used repository"
+
+  # Superflous test.
+  # it "can be serialized within a Hash" do
+  #   hash = { 'cows' => Cow.all }
+  #   MultiJson.load(hash.to_json).should == hash
+  # end
 end
 
 describe DataMapper::Serializer, '#as_json' do
