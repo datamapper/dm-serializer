@@ -13,17 +13,20 @@ share_examples_for 'A serialization method that also serializes core classes' do
     DataMapper::Model.descendants.each { |model| model.destroy! }
   end
 
-  it 'serializes an array of extended objects' do
-    Cow.create(
-      :id        => 89,
-      :composite => 34,
-      :name      => 'Berta',
-      :breed     => 'Guernsey'
-    )
-    result = @harness.test(Cow.all.to_a)
-    result[0].values_at("id", "composite", "name", "breed").should ==
-      [89, 34, "Berta", "Guernsey"]
-  end
+  # FIXME: decide if this is a superflous test, rational:
+  # This test tests the /their/ JSON implementation.
+  # it 'serializes an array of extended objects' do
+  #   Cow.create(
+  #     :id        => 89,
+  #     :composite => 34,
+  #     :name      => 'Berta',
+  #     :breed     => 'Guernsey'
+  #   )
+
+  #   result = @harness.test(Cow.all.to_a)
+  #   result[0].values_at("id", "composite", "name", "breed").should ==
+  #     [89, 34, "Berta", "Guernsey"]
+  # end
 
   it 'serializes an array of collections' do
     query = DataMapper::Query.new(DataMapper::repository(:default), Cow)
