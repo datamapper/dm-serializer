@@ -1,10 +1,10 @@
 bundler_args: --without yard guard metrics benchmarks
+script: "bundle exec rake spec"
 before_install:
   - gem install bundler --pre
 branches:
   only:
     - /^release-.*$/
-script: "bundle exec rake spec"
 matrix:
   allow_failures:
     - rvm: ree
