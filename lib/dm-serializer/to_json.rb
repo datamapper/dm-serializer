@@ -1,5 +1,4 @@
 require 'dm-serializer/common'
-
 require 'multi_json'
 
 module DataMapper
