@@ -27,7 +27,7 @@ describe DataMapper::Serializer, '#to_json' do
       protected
 
       def deserialize(result)
-        JSON.parse(result)
+        MultiJson.load(result)
       end
     end.new
   end
@@ -36,7 +36,7 @@ describe DataMapper::Serializer, '#to_json' do
   it_should_behave_like 'A serialization method that also serializes core classes'
 
   it "handles options given to a collection properly" do
-    deserialized_collection = JSON.parse(@collection.to_json(:only => [:composite]))
+    deserialized_collection = MultiJson.load(@collection.to_json(:only => [:composite]))
     betsy = deserialized_collection.first
     berta = deserialized_collection.last
 
@@ -59,7 +59,7 @@ describe DataMapper::Serializer, '#to_json' do
 
   it "can be serialized within a Hash" do
     hash = { 'cows' => Cow.all }
-    JSON.parse(hash.to_json).should == hash
+    MultiJson.load(hash.to_json).should == hash
   end
 
 end
