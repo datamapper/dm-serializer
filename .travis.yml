@@ -32,8 +32,7 @@ rvm:
 env:
   matrix:
     - "GIT_BRANCH=release-1.2 WITH_JSON=json"
-# notifications:
-#   email:
-#     - dan.kubb@gmail.com
-# notifications:
-#   irc: "irc.freenode.org#datamapper"
+notifications:
+  irc: "irc.freenode.org#datamapper"
+  email:
+    - dan.kubb@gmail.com
