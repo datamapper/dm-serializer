@@ -29,7 +29,7 @@ One method is added to each model/collection for each serialization type - <tt>t
   cow.to_json                      # => { "id": 1, "name": "Berta" }
   cow.to_json(:only    => [:name]) # => { "name": "Berta" }
   cow.to_json(:exclude => [:id])   # => { "name": "Berta" }
-  cow.to_json(:methods => [:desc]) # => { "id": 1, "name": "Berta", "desc": "A Cow" }
+  cow.to_json(:methods => [:description]) # => { "id": 1, "name": "Berta", "description": "A Cow" }
 
 You can include associations by passing the association accessor the <tt>:methods</tt> option.
 
